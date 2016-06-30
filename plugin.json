@@ -1,0 +1,4 @@
+{
+	"name": "nanoapi",
+	"description": "Exposes select APIs through nanomsg RPC."
+}
