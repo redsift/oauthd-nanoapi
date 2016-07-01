@@ -3,6 +3,15 @@
 var nodeShared = require('node-shared'),
   co = require('co');
 
+function get(env, key) {
+  return new Promise(function (resolve, reject) {
+    env.data.apps.get(key, function (err, result) {
+      console.log('get', err, result);
+      resolve(result);
+    });
+  });
+}
+
 function create(env, user, body) {
   return new Promise(function (resolve, reject) {
     env.data.apps.create(body, user, function (err, result) {
@@ -62,6 +71,14 @@ module.exports = function (env) {
       co(function* () {
         console.log('Received nano request:', request);
         if (request.method === 'createSlackApp') {
+          var r = yield get(env, request.params.guid);
+          console.log('r=', r);
+          if (r) {
+            console.log('sending response');
+            nanoSocket.sendResponse({ code: 'ok' }, request.id);
+            return;
+          }
+
           var user = { id: 'admin' };
           var body = { name: request.params.guid, domains: ['https://sso.redsift.io', 'http://localhost:8081'], key: request.params.guid, secret: request.params.secret };
           var result = yield create(env, user, body);
@@ -79,7 +96,7 @@ module.exports = function (env) {
           yield addKeyset(env, result.key, providerBody);
 
           // Send result.key
-          console.log('sending response');
+          console.log('sending response', result.key);
           nanoSocket.sendResponse({ code: 'ok' }, request.id);
         }
       }).catch(function (err) {
