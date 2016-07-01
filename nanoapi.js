@@ -71,9 +71,19 @@ module.exports = function (env) {
       co(function* () {
         console.log('Received nano request:', request);
         if (request.method === 'createSlackApp') {
+          var providerBody = {
+            parameters: {
+              client_id: request.params.slack.client_id,
+              client_secret: request.params.slack.client_secret,
+              scope: 'bot identify chat:write:bot channels:read users:read'
+            }
+          };
+
           var r = yield get(env, request.params.guid);
           console.log('r=', r);
           if (r) {
+            yield addKeyset(env, r.key, providerBody);
+
             console.log('sending response');
             nanoSocket.sendResponse({ code: 'ok' }, request.id);
             return;
@@ -82,14 +92,6 @@ module.exports = function (env) {
           var user = { id: 'admin' };
           var body = { name: request.params.guid, domains: ['https://sso.redsift.io', 'http://localhost:8081'], key: request.params.guid, secret: request.params.secret };
           var result = yield create(env, user, body);
-
-          var providerBody = {
-            parameters: {
-              client_id: request.params.slack.client_id,
-              client_secret: request.params.slack.client_secret,
-              scope: 'bot identify chat:write:bot channels:read users:read'
-            }
-          };
 
           yield setBackend(env, result.key);
 
