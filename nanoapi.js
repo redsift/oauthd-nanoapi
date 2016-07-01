@@ -63,7 +63,7 @@ module.exports = function (env) {
         console.log('Received nano request:', request);
         if (request.method === 'createSlackApp') {
           var user = { id: 'admin' };
-          var body = { name: request.params.guid, domains: ['https://sso.redsift.io', 'http://localhost:8081'], key: request.params.guid, secret: request.params.guid };
+          var body = { name: request.params.guid, domains: ['https://sso.redsift.io', 'http://localhost:8081'], key: request.params.guid, secret: request.params.secret };
           var result = yield create(env, user, body);
 
           var providerBody = {
