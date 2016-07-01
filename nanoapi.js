@@ -80,7 +80,7 @@ module.exports = function (env) {
 
           // Send result.key
           console.log('sending response');
-          nanoSocket.sendResponse(result, request.id);
+          nanoSocket.sendResponse({ code: 'ok' }, request.id);
         }
       }).catch(function (err) {
         console.log(err);
