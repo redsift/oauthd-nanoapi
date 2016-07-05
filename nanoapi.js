@@ -6,7 +6,7 @@ var nodeShared = require('node-shared'),
 function get(env, key) {
   return new Promise(function (resolve, reject) {
     env.data.apps.get(key, function (err, result) {
-      console.log('get', err, result);
+      //console.log('get', err, result);
       resolve(result);
     });
   });
@@ -31,7 +31,7 @@ function create(env, user, body) {
 function addKeyset(env, key, body) {
   return new Promise(function (resolve, reject) {
     env.data.apps.addKeyset(key, 'slack', body, function (err) {
-      console.log('addKeySet', err);
+      //console.log('addKeySet', err);
       if (err) {
         // Send error
         //console.error(err);
@@ -65,11 +65,11 @@ module.exports = function (env) {
   auth.init = function () {
     /* jshint camelcase: false */
     /* jshint -W069 */
-    console.log('oauth-nanoapi: hi');
+    //console.log('oauth-nanoapi: hi');
     console.log('oauth-nanoapi: init', process.env.NANOAPI_URL);
     nodeShared.nano.rep.bind(process.env.NANOAPI_URL, function (nanoSocket, request, err) {
       co(function* () {
-        console.log('Received nano request:', request);
+        //console.log('Received nano request:', request);
         if (request.method === 'createSlackApp') {
           var providerBody = {
             parameters: {
@@ -80,11 +80,11 @@ module.exports = function (env) {
           };
 
           var r = yield get(env, request.params.guid);
-          console.log('r=', r);
+          //console.log('r=', r);
           if (r) {
             yield addKeyset(env, r.key, providerBody);
 
-            console.log('sending response');
+            //console.log('sending response');
             nanoSocket.sendResponse({ code: 'ok' }, request.id);
             return;
           }
@@ -98,11 +98,11 @@ module.exports = function (env) {
           yield addKeyset(env, result.key, providerBody);
 
           // Send result.key
-          console.log('sending response', result.key);
+          //console.log('sending response', result.key);
           nanoSocket.sendResponse({ code: 'ok' }, request.id);
         }
       }).catch(function (err) {
-        console.log(err);
+        console.error(err.stack);
         // Send error
         nanoSocket.sendError(nodeShared.jsonrpc.codes.InternalError, nodeShared.jsonrpc.messages.InternalError, null, request.id);
       });
