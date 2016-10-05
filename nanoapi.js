@@ -90,7 +90,7 @@ module.exports = function (env) {
           }
 
           var user = { id: 'admin' };
-          var body = { name: request.params.guid, domains: ['https://sso.redsift.io', 'localhost'], key: request.params.guid, secret: request.params.secret };
+          var body = { name: request.params.guid, domains: ['https://sso.' + process.env.KUBE_ROOT_DOMAIN, 'localhost'], key: request.params.guid, secret: request.params.secret };
           var result = yield create(env, user, body);
 
           yield setBackend(env, result.key);
