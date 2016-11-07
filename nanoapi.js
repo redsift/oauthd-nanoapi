@@ -69,7 +69,7 @@ module.exports = function (env) {
     console.log('oauth-nanoapi: init', process.env.NANOAPI_URL);
     nodeShared.nano.rep.bind(process.env.NANOAPI_URL, function (nanoSocket, request, err) {
       co(function* () {
-        //console.log('Received nano request:', request);
+        console.log('Received nano request:', request.method);
         if (request.method === 'createSlackApp') {
           var providerBody = {
             parameters: {
@@ -100,6 +100,8 @@ module.exports = function (env) {
           // Send result.key
           //console.log('sending response', result.key);
           nanoSocket.sendResponse({ code: 'ok' }, request.id);
+        } else {
+          nanoSocket.sendError(jsonrpc.codes.InvalidParams, jsonrpc.messages.InvalidParams + ' ' + request.method, null, request.id);
         }
       }).catch(function (err) {
         console.error(err.stack);
