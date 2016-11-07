@@ -101,7 +101,7 @@ module.exports = function (env) {
           //console.log('sending response', result.key);
           nanoSocket.sendResponse({ code: 'ok' }, request.id);
         } else {
-          nanoSocket.sendError(jsonrpc.codes.InvalidParams, jsonrpc.messages.InvalidParams + ' ' + request.method, null, request.id);
+          nanoSocket.sendError(nodeShared.jsonrpc.codes.InvalidParams, nodeShared.jsonrpc.messages.InvalidParams + ' ' + request.method, null, request.id);
         }
       }).catch(function (err) {
         console.error(err.stack);
