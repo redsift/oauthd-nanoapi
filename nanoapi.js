@@ -119,7 +119,7 @@ module.exports = function (env) {
           var providerBody = request.params.providerBody;
           providerBody.parameters.scope = providerBody.parameters.scope || '';
           // add default scope and de-dup
-          var scopeSet = new Set(providerBody.parameters.scope.split(' ').concat(defaultSlackScopes['slack'].split(' ')));
+          var scopeSet = new Set(providerBody.parameters.scope.split(' ').concat(defaultScope.split(' ')));
           providerBody.parameters.scope = Array.from(scopeSet).join(' ');
 
           await createApp(env, nanoSocket, request.id, request.params.guid, request.params.secret, providerBody, request.params.provider);
