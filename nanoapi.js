@@ -118,6 +118,17 @@ module.exports = function (env) {
 
           var providerBody = request.params.providerBody;
           providerBody.parameters.scope = providerBody.parameters.scope || '';
+
+          // set offline mode if needed
+          if (providerBody.parameters.offline) {
+            if (request.params.provider === 'google') {
+              providerBody.parameters.access_type = 'offline';
+            } else if (request.params.provider === 'outlook') {
+              providerBody.parameters.scope += ' offline_access';
+            }
+          }
+          delete providerBody.parameters.offline;
+
           // add default scope and de-dup
           var scopeSet = new Set(providerBody.parameters.scope.split(' ').concat(defaultScope.split(' ')));
           providerBody.parameters.scope = Array.from(scopeSet).join(' ');
