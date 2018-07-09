@@ -1,6 +1,6 @@
 {
   "name": "oauthd-nanoapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "Gruntfile.js",
   "scripts": {
@@ -8,11 +8,8 @@
   },
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "grunt-contrib-coffee": "^0.13.0",
-    "grunt-contrib-watch": "^0.6.1"
-  },
+  "devDependencies": {},
   "dependencies": {
-    "node-shared": "https://github.com/redsift/node-shared.git#master"
+    "@redsift/node-shared": "git+https://github.com/redsift/node-shared.git#master"
   }
 }
