@@ -10,6 +10,6 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "@redsift/node-shared": "git+https://github.com/redsift/node-shared.git#master"
+    "@redsift/node-shared": "^0.3.0"
   }
 }
