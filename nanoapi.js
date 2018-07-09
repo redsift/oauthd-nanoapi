@@ -1,4 +1,4 @@
-var nodeShared = require('node-shared');
+var nodeShared = require('@redsift/node-shared');
 
 var defaultSlackScopes = {
   'slack': 'bot identify chat:write:bot channels:read users:read',
