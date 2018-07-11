@@ -110,11 +110,7 @@ module.exports = function (env) {
 
           await createApp(env, nanoSocket, request.id, request.params.guid, request.params.secret, providerBody, 'slack');
         } else if (request.method === 'createApp') {
-          var defaultScope = defaultSlackScopes[request.params.provider];
-          if (!defaultScope) {
-            nanoSocket.sendError(nodeShared.jsonrpc.codes.InvalidParams, nodeShared.jsonrpc.messages.InvalidParams + ' provider', null, request.id);
-            return;
-          }
+          var defaultScope = defaultSlackScopes[request.params.provider] || '';
 
           var providerBody = request.params.providerBody;
           providerBody.parameters.scope = providerBody.parameters.scope || '';
