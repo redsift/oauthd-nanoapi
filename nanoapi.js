@@ -119,7 +119,7 @@ module.exports = function (env) {
           if (providerBody.parameters.offline) {
             if (request.params.provider === 'google') {
               providerBody.parameters.access_type = 'offline';
-            } else if (request.params.provider === 'outlook') {
+            } else if (request.params.provider === 'azure_active_directory') {
               providerBody.parameters.scope += ' offline_access';
             }
           }
