@@ -11,6 +11,5 @@
   "devDependencies": {},
   "dependencies": {
     "@redsift/node-shared": "^0.3.0",
-    "grunt": "^1.0.3"
   }
 }

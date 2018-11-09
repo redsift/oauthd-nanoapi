@@ -1,6 +1,7 @@
-'use strict';
+"use strict";
 
 module.exports = function (grunt) {
-  grunt.registerTask('default', [])
-}
+  grunt.initConfig({});
+  grunt.registerTask("default", []);
+};
 
