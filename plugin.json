@@ -1,4 +1,5 @@
 {
 	"name": "nanoapi",
-	"description": "Exposes select APIs through nanomsg RPC."
+	"description": "Exposes select APIs through nanomsg RPC.i",
+	"main": "index.js"
 }
