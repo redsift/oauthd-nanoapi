@@ -8,8 +8,10 @@
   },
   "author": "",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-contrib-coffee": "^1.0.0"
+  },
   "dependencies": {
-    "@redsift/node-shared": "^0.3.0",
+    "@redsift/node-shared": "^0.3.0"
   }
 }
